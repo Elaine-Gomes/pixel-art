@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Pixel Art</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+             <div class="options-range">
+                <div class="slider">
+                    <label for="width-range">Grid width</label>
+                    <input type="range" id="width-range" min="1" max="40">
+                    <span id="width-value"></span>
+                </div>
+                <div class="slider">
+                    <label for="height-range">Grid Height</label>
+                    <input type="range" id="height-range" min="1" max="40">
+                    <span id="height-value"></span>
+                </div>
+            </div>
+            <div class="box-btn">
+                <div class="options-btn">
+                     <button id="submit-grid">Create Grid</button>
+                     <button id="clear-grid">Clear Grid</button>
+                     <button id="erase-btn">Erase</button>
+                     <button id="paint-btn">Paint</button>
+                </div>
+                <div class="input-color">
+                     <label for="input-color">Color: </label>  <span id="value-color"></span>
+                     <input id="color-input" type="color" id="input-color" value="#e681d4">
+                </div>
+            </div> 
+            
+        </header>
+  
+            <div class="container">
+
+            </div>
+         
+       </div>    
+   
+    <script src="script.js"></script>
+</body>
+</html>
