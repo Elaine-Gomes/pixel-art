@@ -20,10 +20,9 @@ valueColor.style.color = colorButton.value;
 colorButton.addEventListener('input', ()=>{
     valueColor.innerHTML = colorButton.value;
     valueColor.style.color = colorButton.value
-    console.log(colorButton.value)
 })
 
-// Events objesct
+// Events object
 let events = {
     mouse:{
         down: 'mousedown',
@@ -73,92 +72,92 @@ isTouchDevice();
 //Creat grid
 
 gridButton.addEventListener('click',(e)=>{
-   
-   gridButton.className = 'active';
-   clearGridButton.className ='';
-   paintBtn.className =  ''
-   eraseBtn.className = ''
-   //Initially clear grid 
-   container.innerHTML = "";
+    
+    gridButton.className = 'active';
+    clearGridButton.className ='';
+    paintBtn.className =  ''
+    eraseBtn.className = ''
+    //Initially clear grid 
+    container.innerHTML = "";
 
-   //count variable for generating unique ids
-   //variável de contagem para gerar IDs exclusivos
-   let count = 0;
+    //count variable for generating unique ids
+    //variável de contagem para gerar IDs exclusivos
+    let count = 0;
 
-   //loop for creating rows
+    //loop for creating rows
 
-   for (let i = 0; i < gridHeight.value; i++) {
-      count += 2;
-      //Creat row div
-      let div = document.createElement('div');
-      div.classList.add('gridRow');
-      //creat columns
-      for (let i = 0; i < gridwidth.value; i++){
+    for (let i = 0; i < gridHeight.value; i++) {
         count += 2;
 
-        //we need unique id for all columns(for touch screen specifically
-        /*precisamos de id único para todas as colunas 
-         (para tela sensível ao toque especificamente)*/
-        let col = document.createElement('div');
-        col.classList.add('gridCol');
-        col.setAttribute('id',`gridCol${count}`);
+        //Creat row div
+        let div = document.createElement('div');
+        div.classList.add('gridRow');
+     
+        //creat columns
+        for (let i = 0; i < gridwidth.value; i++){
+            count += 2;
 
-        /*
-       for eg if deviceType = "mouse"
-       the statement for the event would 
-       be events [mouse].down  equal mousedown
-       if deviceType = "touch"
-       the statement for the event would 
-       be events [touch].down  equal touchstart
-       
- */
-      col.addEventListener(events[deviceType].down, ()=>{
-           draw = true;
-           if(erase){
-             col.style.backgroundColor = 'transparent'
-           }else{
-             col.style.backgroundColor = colorButton.value;
-           }
-      });
-      col.addEventListener(events[deviceType].move, (e)=>{
-            let elementId = document.elementFromPoint(
-                !isTouchDevice() ? e.clientX : e.touches[0].clientX,
-                !isTouchDevice() ? e.clientY : e.touches[0].clientY,
-            ).id;
-            checker(elementId)
-      });
-      col.addEventListener(events[deviceType].up, ()=>{
-            draw = false;
-      });
-      div.appendChild(col)
-      }
-      container.appendChild(div)
-   }
-   
-});
-function checker(elementId){
-   let gridColumns = document.querySelectorAll('.gridCol');
-   gridColumns.forEach((element)=>{
-    if(elementId === element.id){
-        if(draw && !erase){
-            element.style.backgroundColor = colorButton.value
-    
-        } else if(draw && erase){
-            element.style.backgroundColor = 'transparent'
+            //we need unique id for all columns(for touch screen specifically
+            /*precisamos de id único para todas as colunas 
+            (para tela sensível ao toque especificamente)*/
+            let col = document.createElement('div');
+            col.classList.add('gridCol');
+            col.setAttribute('id',`gridCol${count}`);
+
+            col.addEventListener(events[deviceType].down, ()=>{
+                draw = true;
+                if(erase){
+                    col.style.backgroundColor = 'transparent'
+                }else{
+                    col.style.backgroundColor = colorButton.value;
+                }
+            });
+            col.addEventListener(events[deviceType].move, (e)=>{
+                let elementId = document.elementFromPoint(
+                    !isTouchDevice() ? e.clientX : e.touches[0].clientX,
+                    !isTouchDevice() ? e.clientY : e.touches[0].clientY,
+                ).id;
+                checker(elementId)
+            });
+
+            col.addEventListener(events[deviceType].up, ()=>{
+                draw = false;
+            });
+
+            div.appendChild(col)
         }
-       }
-   });
-    
- }
+        container.appendChild(div);  
+    }  
+});
+
+function checker(elementId){
+        
+    let gridColumns = document.querySelectorAll('.gridCol');
+    gridColumns.forEach((element)=>{
+        if(elementId === element.id){
+            if(draw && !erase){
+                element.style.backgroundColor = colorButton.value
+        
+            }else if(draw && erase){
+                element.style.backgroundColor = 'transparent'
+            }
+        }
+    });
+}
  //Clear grid
 clearGridButton.addEventListener('click',()=>{
 
+    if (container.innerHTML.trim()!== ""){
+        if (confirm("Deseja realmente excluir?")){
+          container.innerHTML = ""; 
+        }
+      }
+   
     clearGridButton.className ='active';
     gridButton.className = ''
     paintBtn.className =  ''
     eraseBtn.className = ''
-
-    container.innerHTML = ""
+   
  });
 
  //Erase button
@@ -166,15 +165,15 @@ clearGridButton.addEventListener('click',()=>{
 
     eraseBtn.className = 'active'
     gridButton.className = ''
-    clearGridButton.className ='';
+    clearGridButton.className = '';
     paintBtn.className =  ''
   
-     erase = true;
+    erase = true;
  });
 
- paintBtn.addEventListener('click', ()=>{
+paintBtn.addEventListener('click', ()=>{
     gridButton.className = ''
-    clearGridButton.className ='';
+    clearGridButton.className = '';
     eraseBtn.className = ''
     paintBtn.className =  'active'
     erase = false;
@@ -189,6 +188,12 @@ const updateValueWidth = ()=>{
 const updateValueheight = ()=>{
     labelHeightvalue.innerHTML = gridHeight.value 
 }
+//permite que você exiba uma mensagem para o usuário, antes da página ser recarregada.
+window.onbeforeunload = function() {
+    return "Deseja realmente sair da página?";
+};
 
 gridwidth.addEventListener('input',updateValueWidth);
 gridHeight.addEventListener('input',updateValueheight);
+
+onbeforeunload();

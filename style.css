@@ -82,7 +82,6 @@ button,input{
 input[type="color"]{
     width: 100%;
     margin-top: 4px;
-
 }
 .input-color{
     width:86%;
@@ -98,7 +97,6 @@ input[type="color"]{
    font-weight: 600;
    text-transform: uppercase;
 }
-
 .container{
     margin:8px 15px ;
     width: 60%;
@@ -112,14 +110,12 @@ input[type="color"]{
 .gridRow{
     display: flex;
 }
-.normal{
-    background-color: lightgray;
-  }
-  
 .options-btn .active{
     color: #fff;
     filter: brightness(50%);
   }
+
+/* responsividade */
 @media(max-width : 600px){
     body{
         background-attachment: fixed;
@@ -138,7 +134,14 @@ input[type="color"]{
         border: 1px solid #ccc;
    
     }
+    .options-range,.options-btn{
+        margin-left: 0;
+    }
     .input-color{
         width: 90%;
+    }
+    .input-color{
+        left: 16px;
+   
     }
 }
